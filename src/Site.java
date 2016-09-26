@@ -4,7 +4,7 @@ class Site{
   int street;
   int desiredTime;
   float value;
-  int[] beginHour;
+  int[] openingHour;
   int[] endHour;
 
   public Site(int id, int avenue, int street, int desiredTime, float value){
@@ -13,7 +13,7 @@ class Site{
     this.street = street;
     this.desiredTime = desiredTime;
     this.value = value;
-    beginHour = new int[11];
-    endHour = new int[11];
+    this.openingHour = new int[11];
+    this.endHour = new int[11];
   }
 }

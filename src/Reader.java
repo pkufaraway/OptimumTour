@@ -3,12 +3,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.SynchronousQueue;
 
 public class Reader {
     ArrayList<Site> mySite;
     int maxAvenue;
     int maxStreet;
+    int maxDays;
     public Reader(){
         mySite = new ArrayList<Site>();
         maxStreet = 0;
@@ -21,7 +21,7 @@ public class Reader {
      */
     public void readInput(String inputName) {
         Site currentLine;
-        String line = null;
+        String line;
         HashMap<Integer, Site> myHashMap = new HashMap<Integer, Site>();
         try {
             FileReader fileReader = new FileReader(inputName);
@@ -35,7 +35,6 @@ public class Reader {
                     break;
                 }
                 else if(line.charAt(0) != 's'){
-                    System.out.println(line);
                     String[] splitString = line.split(" ");
                     int siteId = Integer.valueOf(splitString[0]);
                     int avenue = Integer.valueOf(splitString[1]);
@@ -62,8 +61,11 @@ public class Reader {
                     int beginHour = Integer.valueOf(splitString[2]);
                     int endHour = Integer.valueOf(splitString[3]);
                     currentLine = myHashMap.get(siteId);
-                    currentLine.beginHour[day] = beginHour;
+                    currentLine.openingHour[day] = beginHour;
                     currentLine.endHour[day] = endHour;
+                    if(day > maxDays){
+                        maxDays = day;
+                    }
                 }
             }
             // Always close files.

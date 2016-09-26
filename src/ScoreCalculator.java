@@ -12,15 +12,15 @@ public class ScoreCalculator {
    * @param dailyRoutes List of List of sites visited per day
    * @return Value of the route passed by the user
    */
+
   public static double routeScore(List<List<Site>> dailyRoutes) {
     double totalScore = 0;
-    
     if (!routeIsValid(dailyRoutes)) {
       return -Double.MAX_VALUE;
     }
     for (List<Site> dailyRoute : dailyRoutes) {
       for (Site location : dailyRoute) {
-        totalScore += location.getValue();
+        totalScore += location.value;
       }
     }
     return totalScore;
@@ -54,11 +54,11 @@ public class ScoreCalculator {
           } 
           // If there won't be enough time, or the place is closed, this will
           // not be a valid route
-          if (currentTime >= location.closingHour[day]
-              || (currentTime + location.desiredTime) >= location.closingHour[day]) {
-            if (currentTime >= location.closingHour[day]) {
+          if (currentTime >= location.endHour[day]
+              || (currentTime + location.desiredTime) >= location.endHour[day]) {
+            if (currentTime >= location.endHour[day]) {
               System.out.println("Place already closed: it closes at " 
-                  + location.closingHour[day] + " and it's " + currentTime);
+                  + location.endHour[day] + " and it's " + currentTime);
             } else {
               System.out.println("Not enough time to visit this location");
             }
