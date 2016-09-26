@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class GreedyTouring {
+public class GreedyValueTouring {
     private final List<Site> sites;
     private int currentDay;
     private int totalDays;
@@ -13,7 +13,7 @@ public class GreedyTouring {
     private int currentStreet;
     private int currentTime;
 
-    public GreedyTouring(List<Site> sites, int days) {
+    public GreedyValueTouring(List<Site> sites, int days) {
         this.sites = new ArrayList<Site>(sites);
         this.totalDays = days;
         unvisitedSites = new HashSet<Site>(sites);
@@ -35,15 +35,15 @@ public class GreedyTouring {
             unvisitedSites.remove(currentSite);
 
             while (!endOfTheDay(currentTime)) {
-                currentSite = findNearestOpenSite(currentTime);
+                currentSite = findMostValuableOpenSite(currentTime);
 
                 currentTime += Math.abs(currentAve - currentSite.avenue)
                         + Math.abs(currentStreet - currentSite.street);
                 currentStreet = currentSite.street;
                 currentAve = currentSite.avenue;
 
-                if (currentTime < currentSite.openingHour[currentDay]) {
-                    currentTime = currentSite.openingHour[currentDay];
+                if (currentTime < currentSite.openingHour[currentDay] * 60) {
+                    currentTime = currentSite.openingHour[currentDay] * 60;
                 }
 
                 currentTime += currentSite.desiredTime;
@@ -90,22 +90,17 @@ public class GreedyTouring {
      * @param currentTime current time
      * @return The nearest open, unvisited site
      */
-    private Site findNearestOpenSite(int currentTime) {
-        int closestDistance = Integer.MAX_VALUE;
-        Site closestSite = null;
+    private Site findMostValuableOpenSite(int currentTime) {
+        float largestValue = 0;
+        Site largestValueSite = null;
 
         for (Site possibleSite : unvisitedSites) {
-            int totalDistance = Math.abs(currentAve - possibleSite.avenue)
-                    + Math.abs(currentStreet - possibleSite.street);
-
-            if (totalDistance < closestDistance &&
-                    couldVisit(possibleSite, currentTime)) {
-                closestDistance = totalDistance;
-                closestSite = possibleSite;
-
+            if (possibleSite.value > largestValue && couldVisit(possibleSite, currentTime)) {
+                largestValue = possibleSite.value;
+                largestValueSite = possibleSite;
             }
         }
-        return closestSite;
+        return largestValueSite;
     }
 
     /**

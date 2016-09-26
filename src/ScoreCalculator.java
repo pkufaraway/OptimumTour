@@ -54,8 +54,8 @@ public class ScoreCalculator {
           } 
           // If there won't be enough time, or the place is closed, this will
           // not be a valid route
-          if (currentTime >= location.endHour[day]
-              || (currentTime + location.desiredTime) >= location.endHour[day]) {
+          if (currentTime >= location.endHour[day] * 60
+              || (currentTime + location.desiredTime) >= location.endHour[day] * 60) {
             if (currentTime >= location.endHour[day]) {
               System.out.println("Place already closed: it closes at " 
                   + location.endHour[day] + " and it's " + currentTime);

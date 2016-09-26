@@ -87,7 +87,9 @@ public class Reader {
         for (Site site: myReader.mySite){
             System.out.printf("%d %d %d %d %f %n", site.id, site.avenue, site.street, site.desiredTime, site.value);
             for (int i = 0; i < 11; i++){
-                System.out.printf("%d %d %n", site.beginHour[i], site.endHour[i]);
+                if(site.openingHour[i] > 0) {
+                    System.out.printf("%d %d %n", site.openingHour[i], site.endHour[i]);
+                }
             }
         }
     }
