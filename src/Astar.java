@@ -1,6 +1,6 @@
 import java.util.Set;
 
-public class GreedyValueTouring implements Algorithm{
+public class Astar implements Algorithm{
 
     public Site findBestStartingPoint(Set<Site> unvisitedSites) {
         double maxValue = 0;
@@ -26,8 +26,8 @@ public class GreedyValueTouring implements Algorithm{
 
         for (Site possibleSite : unvisitedSites) {
             if (Helper.couldVisit(possibleSite, currentTime, currentSite, currentDay)) {
-                if(possibleSite.value> largestValue) {
-                    largestValue = possibleSite.value;
+                if(possibleSite.convertedValue> largestValue) {
+                    largestValue = possibleSite.convertedValue;
                     largestValueSite = possibleSite;
                 }
             }

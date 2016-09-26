@@ -36,11 +36,11 @@ public class FindRoute {
                 currentTime += Math.abs(newSite.avenue - currentSite.avenue)
                         + Math.abs(newSite.street - currentSite.street);
 
-                if (currentTime < currentSite.openingHour[currentDay] * 60) {
-                    currentTime = currentSite.openingHour[currentDay] * 60;
+                if (currentTime < newSite.openingHour[currentDay] * 60) {
+                    currentTime = newSite.openingHour[currentDay] * 60;
                 }
 
-                currentTime += currentSite.desiredTime;
+                currentTime += newSite.desiredTime;
                 todaysRoute.add(newSite);
                 unvisitedSites.remove(newSite);
                 currentSite = newSite;
