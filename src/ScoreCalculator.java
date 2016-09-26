@@ -38,7 +38,7 @@ public class ScoreCalculator {
       for (Site location : dailyRoute) {
 
         if (currentTime == -1) {
-          currentTime = (location.openingHour[day]) + location.desiredTime;
+          currentTime = (location.openingHour[day]) * 60 + location.desiredTime;
           currentStreet = location.street;
           currentAvenue = location.avenue;
         } else {
@@ -49,14 +49,14 @@ public class ScoreCalculator {
           currentStreet = location.street;
           currentAvenue = location.avenue;
           // Wait if place hasn't opened
-          if (currentTime <= location.openingHour[day]) {
-            currentTime = location.openingHour[day];
+          if (currentTime <= location.openingHour[day] * 60) {
+            currentTime = location.openingHour[day] * 60;
           } 
           // If there won't be enough time, or the place is closed, this will
           // not be a valid route
           if (currentTime >= location.endHour[day] * 60
               || (currentTime + location.desiredTime) >= location.endHour[day] * 60) {
-            if (currentTime >= location.endHour[day]) {
+            if (currentTime >= location.endHour[day] * 60) {
               System.out.println("Place already closed: it closes at " 
                   + location.endHour[day] + " and it's " + currentTime);
             } else {

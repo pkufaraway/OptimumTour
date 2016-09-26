@@ -5,23 +5,15 @@ public class mainFrame {
         String inputFile = "input.txt";
         Reader myReader = new Reader();
         myReader.readInput(inputFile);
-        FindRoute greedyTouring = new FindRoute(ValueRefactor.valueRefactor(myReader.mySite), myReader.maxDays);
-        FindRoute greedyValueTouring = new FindRoute(ValueRefactor.valueRefactor(myReader.mySite), myReader.maxDays);
-        List<List<Site>> greedyTouringResult = greedyTouring.findRoute(new GreedyDistanceTouring());
-        /*
-        for (List<Site> dayRoutes : greedyTouringResult){
-            for (Site eachSite : dayRoutes){
-                System.out.println(eachSite.id);
-            }
-        }*/
-        List<List<Site>> greedyValueTouringResult = greedyValueTouring.findRoute(new GreedyValueTouring());
-        /*
-        for (List<Site> dayRoutes : greedyValueTouringResult){
-            for (Site eachSite : dayRoutes){
-                System.out.println(eachSite.id);
-            }
-        }*/
-        System.out.println(ScoreCalculator.routeScore(greedyTouringResult));
-        System.out.println(ScoreCalculator.routeScore(greedyValueTouringResult));
+        List<Site> refactoredSites = ValueRefactor.valueRefactor(myReader.mySite);
+        //Initialize all your algorithms here.
+        Algorithm[] myAlgorithms = {new GreedyDistanceTouring(), new GreedyValueTouring()};
+
+        for (Algorithm algorithm : myAlgorithms){
+            FindRoute tempRouter = new FindRoute(refactoredSites, myReader.maxDays);
+            List<List<Site>> tempResult = tempRouter.findRoute(algorithm);
+            System.out.println(algorithm.getClass().getName());
+            System.out.println(ScoreCalculator.routeScore(tempResult));
+        }
     }
 }

@@ -26,9 +26,8 @@ public class GreedyValueTouring implements Algorithm{
 
         for (Site possibleSite : unvisitedSites) {
             if (Helper.couldVisit(possibleSite, currentTime, currentSite, currentDay)) {
-                int distance = Math.abs(currentSite.avenue - possibleSite.avenue) + Math.abs(currentSite.street - possibleSite.street);
-                if(possibleSite.value / distance> largestValue) {
-                    largestValue = possibleSite.value / distance;
+                if(possibleSite.value> largestValue) {
+                    largestValue = possibleSite.value;
                     largestValueSite = possibleSite;
                 }
             }
