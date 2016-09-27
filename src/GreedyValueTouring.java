@@ -2,16 +2,24 @@ import java.util.Set;
 
 public class GreedyValueTouring implements Algorithm{
 
-    public Site findBestStartingPoint(Set<Site> unvisitedSites) {
+    public Site findBestStartingPoint(Set<Site> unvisitedSites, int currentDay) {
         double maxValue = 0;
         Site bestSite = unvisitedSites.iterator().next();
-
         for (Site site : unvisitedSites) {
-            if (site.convertedValue > maxValue) {
-                maxValue = site.convertedValue;
-                bestSite = site;
+            double convertedValue = 0;
+            if(Helper.couldVisit(site, 0, site, currentDay)){
+                for (Site nearSite : unvisitedSites){
+                    if(Helper.couldVisit(nearSite, Helper.visit(site,0,site,currentDay), site, currentDay)){
+                        convertedValue += nearSite.value/(Helper.distance(site, nearSite) + 1);
+                    }
+                }
+                if (convertedValue > maxValue) {
+                    maxValue = convertedValue;
+                    bestSite = site;
+                }
             }
         }
+
         return bestSite;
     }
 
@@ -26,7 +34,7 @@ public class GreedyValueTouring implements Algorithm{
 
         for (Site possibleSite : unvisitedSites) {
             if (Helper.couldVisit(possibleSite, currentTime, currentSite, currentDay)) {
-                if(possibleSite.value> largestValue) {
+                if(possibleSite.value > largestValue) {
                     largestValue = possibleSite.value;
                     largestValueSite = possibleSite;
                 }

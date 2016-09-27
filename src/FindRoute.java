@@ -24,7 +24,7 @@ public class FindRoute {
         for (currentDay = 1; currentDay <= totalDays; currentDay++) {
             List<Site> todaysRoute = new ArrayList<Site>();
 
-            currentSite = myAlgorithm.findBestStartingPoint(unvisitedSites);
+            currentSite = myAlgorithm.findBestStartingPoint(unvisitedSites, currentDay);
             currentTime = currentSite.openingHour[currentDay] * 60;
             currentTime += currentSite.desiredTime;
 

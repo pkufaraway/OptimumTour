@@ -34,9 +34,10 @@ public class ScoreCalculator {
         int currentAvenue = 0;
 
         for (List<Site> dailyRoute : dailyRoutes) {
+
             currentTime = -1;
             for (Site location : dailyRoute) {
-
+                //System.out.printf("Currenday:%d CurrentTime:%d id:%d %n", day, currentTime, location.id);
                 if (currentTime == -1) {
                     currentTime = (location.openingHour[day]) * 60 + location.desiredTime;
                     currentStreet = location.street;
@@ -55,7 +56,7 @@ public class ScoreCalculator {
                     // If there won't be enough time, or the place is closed, this will
                     // not be a valid route
                     if (currentTime + location.desiredTime >= location.endHour[day] * 60) {
-                        System.out.println("Not enough time to visit this location");
+                        //System.out.println("Not enough time to visit this location");
                         return false;
                     }
                     currentTime += location.desiredTime;
@@ -63,7 +64,7 @@ public class ScoreCalculator {
 
                 //If the Site has already been visited, the route is invalid
                 if (visitedSites.contains(location)) {
-                    System.out.println("Duplicate site error");
+                    //System.out.println("Duplicate site error");
                     return false;
                 } else {
                     visitedSites.add(location);
