@@ -3,9 +3,8 @@ import java.util.List;
 
 public class mainFrame {
     public static void main(String[] args){
-        String inputFile = "input.txt";
         Reader myReader = new Reader();
-        myReader.readInput(inputFile);
+        myReader.readInput("given_info.txt");
         List<Site> refactoredSites = ValueRefactor.valueRefactor(myReader.mySite);
         //Initialize all your algorithms here.
         Algorithm[] myAlgorithms = {new GreedyDistanceTouring(),
