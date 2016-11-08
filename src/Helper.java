@@ -4,6 +4,10 @@
 public class Helper {
     public static boolean couldVisit(Site possibleSite, int currentTime, Site currentSite, int currentDay) {
         //Add walking time to currentTime;
+        if(currentSite == null){
+            return (possibleSite.endHour[currentDay] -possibleSite.openingHour[currentDay]) * 60
+                    > possibleSite.desiredTime;
+        }
         int myCurrentTime = currentTime +Math.abs(currentSite.avenue - possibleSite.avenue)
                 + Math.abs(currentSite.street - possibleSite.street);
 
@@ -19,6 +23,9 @@ public class Helper {
     public static int visit(Site possibleSite, int currentTime, Site currentSite, int currentDay) {
         if (!couldVisit(possibleSite, currentTime, currentSite, currentDay)){
             return -1;
+        }
+        if(currentSite == null){
+            return possibleSite.openingHour[currentDay] * 60 + possibleSite.desiredTime;
         }
         int myCurrentTime = currentTime + Math.abs(currentSite.avenue - possibleSite.avenue)
                 + Math.abs(currentSite.street - possibleSite.street);
