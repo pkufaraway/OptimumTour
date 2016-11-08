@@ -35,15 +35,13 @@ public class mainFrame {
 
         System.out.println(maxDepth * 2);
         //Check brute force
-
         Force myForce = new Force(myReader.mySite, myReader.maxDays, maxDepth * 2);
         List<List<Site>> tempResultForce = myForce.calcBest();
         OutputToServer.printSitesByDay(tempResultForce);
         if(ScoreCalculator.routeScore(tempResultForce) > maxResult){
             answer = tempResultForce;
+            maxResult = ScoreCalculator.routeScore(tempResultForce);
         }
-        System.out.println(ScoreCalculator.routeScore(tempResultForce));
-
 
         //Check A* algorithm
         Astar myAstar = new Astar(refactoredSites, myReader.maxDays);
